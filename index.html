@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>《내일》 읽기 활동지</title>
+    <title>《내일》 읽기 활동지 - 웹학습지</title>
+    
+    <!-- 외부 라이브러리 CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -44,16 +49,16 @@
             margin-top: 15px;
         }
         
-        /* 페이지 2 전용 레이아웃 - 5개 섹션 컴팩트 배치 */
+        /* 페이지 2 전용 레이아웃 - 최적화된 공간 활용 */
         .page-2 {
-            padding: 12mm 15mm; /* 상하 여백 축소 */
+            padding: 10mm 15mm; /* 상하 여백 더 축소 */
         }
         
         .page-2 .content-wrapper {
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            gap: 12px; /* 활동 간 간격 축소 */
         }
         
         @media print {
@@ -76,7 +81,7 @@
             }
             /* 마지막 페이지는 page-break 없음 */
             .page-2 {
-                padding: 12mm 15mm;
+                padding: 10mm 15mm;
                 page-break-after: auto;
             }
             .no-print {
@@ -143,9 +148,9 @@
             justify-content: center;
         }
         
-        /* 섹션 스타일 - 페이지 2 (컴팩트) */
+        /* 섹션 스타일 - 페이지 2 (확대 및 간격 최소화) */
         .page-2 .section {
-            margin-bottom: 10px; /* 간격 축소 */
+            margin-bottom: 5px; /* 간격 더 축소 */
         }
         
         .section-title {
@@ -155,7 +160,7 @@
             border-radius: 12px;
             display: inline-block;
             font-size: 12px;
-            margin-bottom: 8px;
+            margin-bottom: 6px; /* 마진 축소 */
             font-weight: bold;
         }
         
@@ -310,14 +315,14 @@
             line-height: 1.3;
         }
         
-        /* 2페이지 스타일 - 컴팩트 버전 */
+        /* 2페이지 스타일 - 확대 버전 */
         .declaration-box {
             background: linear-gradient(135deg, #fff8dc, #ffe4b5);
-            padding: 12px;
+            padding: 15px; /* 패딩 증가 */
             border-radius: 8px;
             text-align: center;
-            font-size: 14px;
-            line-height: 1.8;
+            font-size: 15px; /* 폰트 크기 증가 */
+            line-height: 2;
             border: 2px solid #333;
             color: #000;
             font-weight: bold;
@@ -327,115 +332,115 @@
         .declaration-box input {
             border: none;
             background: white;
-            padding: 2px 5px;
+            padding: 3px 6px;
             border-radius: 4px;
             font-weight: bold;
-            width: 110px;
+            width: 120px;
             text-align: center;
             border: 1px solid #666;
             color: #000;
-            font-size: 12px;
+            font-size: 13px;
         }
         
         .friend-message {
             background: #f0f8f0;
-            padding: 10px;
+            padding: 12px; /* 패딩 증가 */
             border-radius: 6px;
             border: 2px dashed #666;
         }
         
         .friend-message h4 {
-            margin-bottom: 5px;
-            font-size: 11px;
+            margin-bottom: 6px;
+            font-size: 12px; /* 폰트 크기 증가 */
             color: #000;
         }
         
         .friend-message textarea {
             width: 100%;
-            height: 40px;
+            height: 50px; /* 높이 증가 */
             border: 1px solid #888;
             border-radius: 4px;
-            padding: 5px;
-            font-size: 10px;
+            padding: 6px;
+            font-size: 11px; /* 폰트 크기 증가 */
             resize: none;
-            line-height: 1.2;
+            line-height: 1.3;
         }
         
         .friend-message div {
             text-align: right; 
-            margin-top: 5px;
+            margin-top: 6px;
         }
         
         .friend-message div input {
-            width: 80px; 
+            width: 90px; 
             border: none;
             border-bottom: 1px solid #333; 
-            font-size: 10px;
+            font-size: 11px;
             padding: 2px;
         }
         
-        /* 편지 섹션 */
+        /* 편지 섹션 - 확대 */
         .letter-box {
             background: #f5f5ff;
-            padding: 10px;
+            padding: 12px; /* 패딩 증가 */
             border-radius: 6px;
             border: 1px solid #999;
         }
         
         .letter-box h4 {
-            margin-bottom: 5px;
-            font-size: 11px;
+            margin-bottom: 6px;
+            font-size: 12px; /* 폰트 크기 증가 */
             color: #000;
         }
         
         .letter-box textarea {
             width: 100%;
-            height: 45px;
+            height: 55px; /* 높이 증가 */
             border: 1px solid #888;
             border-radius: 4px;
-            padding: 5px;
-            font-size: 10px;
+            padding: 6px;
+            font-size: 11px; /* 폰트 크기 증가 */
             resize: none;
-            line-height: 1.2;
+            line-height: 1.3;
         }
         
-        /* 변화 다짐 - 컴팩트 그리드 */
+        /* 변화 다짐 - 확대된 그리드 */
         .change-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 10px; /* 간격 살짝 증가 */
         }
         
         .change-box {
             background: white;
-            padding: 8px;
+            padding: 10px; /* 패딩 증가 */
             border-radius: 6px;
             border: 1px solid #999;
             box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
         
         .change-box h5 {
-            font-size: 11px;
+            font-size: 12px; /* 폰트 크기 증가 */
             color: #000;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             font-weight: bold;
         }
         
         .change-box textarea {
             width: 100%;
-            height: 35px;
+            height: 45px; /* 높이 증가 */
             border: 1px solid #ccc;
             border-radius: 3px;
-            padding: 4px;
-            font-size: 10px;
+            padding: 5px;
+            font-size: 11px; /* 폰트 크기 증가 */
             resize: none;
-            line-height: 1.2;
+            line-height: 1.3;
         }
         
-        /* 깨달음 섹션 - 컴팩트 */
+        /* 깨달음 섹션 - 확대 */
         .insight-box {
             background: #fffaf0;
-            padding: 10px;
+            padding: 12px; /* 패딩 증가 */
             border-radius: 6px;
             text-align: center;
             border: 2px solid #666;
@@ -444,34 +449,41 @@
         
         .insight-box textarea {
             width: 100%;
-            height: 45px;
+            height: 55px; /* 높이 증가 */
             border: 1px solid #888;
             border-radius: 4px;
-            padding: 5px;
-            font-size: 10px;
+            padding: 6px;
+            font-size: 11px; /* 폰트 크기 증가 */
             resize: none;
-            line-height: 1.2;
+            line-height: 1.3;
         }
         
-        /* 버튼 스타일 */
+        /* 버튼 컨테이너 - 확장 */
         .btn-container {
             position: fixed;
             bottom: 30px;
             right: 30px;
             display: flex;
+            flex-direction: column;
             gap: 10px;
             z-index: 1000;
         }
         
+        .btn-row {
+            display: flex;
+            gap: 10px;
+        }
+        
         button {
-            padding: 12px 24px;
+            padding: 12px 20px;
             border: none;
             border-radius: 25px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             transition: all 0.3s;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             font-weight: bold;
+            white-space: nowrap;
         }
         
         .btn-print {
@@ -484,15 +496,64 @@
             color: white;
         }
         
+        .btn-new {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-export-img {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-export-pdf {
+            background: #9b59b6;
+            color: white;
+        }
+        
         button:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* 로딩 스피너 */
+        .loading-spinner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 30px 50px;
+            border-radius: 10px;
+            font-weight: bold;
+            z-index: 10000;
+            display: none;
+        }
+        
+        .loading-spinner.active {
+            display: block;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
         }
     </style>
 </head>
 <body>
     <!-- 첫 번째 페이지 -->
-    <div class="page page-1">
+    <div class="page page-1" id="page1">
         <header>
             <h1>📚 《내일》 읽기 활동지</h1>
             <div class="info-line">
@@ -571,7 +632,7 @@
     </div>
 
     <!-- 두 번째 페이지 -->
-    <div class="page page-2">
+    <div class="page page-2" id="page2">
         <div class="content-wrapper">
             <div class="section">
                 <span class="section-title">4️⃣ 오늘 선언문</span>
@@ -631,9 +692,23 @@
         </div>
     </div>
 
+    <!-- 로딩 스피너 -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+        <div>처리 중입니다...</div>
+    </div>
+
+    <!-- 버튼 컨테이너 -->
     <div class="btn-container no-print">
-        <button class="btn-save" onclick="saveData()">💾 저장하기</button>
-        <button class="btn-print" onclick="printWorksheet()">🖨️ 인쇄하기</button>
+        <div class="btn-row">
+            <button class="btn-save" onclick="saveData()">💾 저장하기</button>
+            <button class="btn-new" onclick="clearForm()">🆕 새로 작성</button>
+            <button class="btn-print" onclick="printWorksheet()">🖨️ 인쇄하기</button>
+        </div>
+        <div class="btn-row">
+            <button class="btn-export-img" onclick="exportAsImage()">📸 이미지 저장</button>
+            <button class="btn-export-pdf" onclick="exportAsPDF()">📄 PDF 저장</button>
+        </div>
     </div>
 
     <script>
@@ -704,10 +779,146 @@
             }
         }
 
+        // 새로 작성하기 (초기화)
+        function clearForm() {
+            if(confirm('모든 내용을 지우고 새로 작성하시겠습니까?\n저장하지 않은 내용은 사라집니다.')) {
+                // 모든 입력 필드 초기화
+                document.querySelectorAll('textarea, input[type="text"]').forEach(element => {
+                    element.value = '';
+                });
+                
+                // 날짜는 오늘로 재설정
+                document.getElementById('date').value = new Date().toISOString().split('T')[0];
+                
+                // 로컬 스토리지 클리어
+                localStorage.removeItem('worksheet_tomorrow_v3');
+                
+                showNotification('🆕 새로운 활동지를 시작합니다!', 'success');
+            }
+        }
+
+        // 이미지로 저장
+        async function exportAsImage() {
+            showLoader(true);
+            
+            try {
+                // 버튼 숨기기
+                document.querySelector('.btn-container').style.display = 'none';
+                
+                // 두 페이지를 합친 임시 컨테이너 생성
+                const tempContainer = document.createElement('div');
+                tempContainer.style.background = 'white';
+                tempContainer.style.padding = '20px';
+                document.body.appendChild(tempContainer);
+                
+                // 페이지 복사
+                const page1Clone = document.getElementById('page1').cloneNode(true);
+                const page2Clone = document.getElementById('page2').cloneNode(true);
+                
+                // 스타일 조정
+                page1Clone.style.boxShadow = 'none';
+                page1Clone.style.marginBottom = '30px';
+                page2Clone.style.boxShadow = 'none';
+                
+                tempContainer.appendChild(page1Clone);
+                tempContainer.appendChild(page2Clone);
+                
+                // html2canvas로 캡처
+                const canvas = await html2canvas(tempContainer, {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    logging: false
+                });
+                
+                // 임시 컨테이너 제거
+                document.body.removeChild(tempContainer);
+                
+                // 이미지 다운로드
+                const link = document.createElement('a');
+                const studentName = document.getElementById('name').value || '학생';
+                link.download = `내일_읽기활동지_${studentName}_${new Date().toLocaleDateString()}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+                
+                // 버튼 다시 표시
+                document.querySelector('.btn-container').style.display = 'flex';
+                
+                showNotification('📸 이미지로 저장되었습니다!', 'success');
+            } catch(error) {
+                console.error('이미지 저장 오류:', error);
+                showNotification('❌ 이미지 저장 중 오류가 발생했습니다.', 'error');
+                document.querySelector('.btn-container').style.display = 'flex';
+            } finally {
+                showLoader(false);
+            }
+        }
+
+        // PDF로 저장
+        async function exportAsPDF() {
+            showLoader(true);
+            
+            try {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                // 버튼 숨기기
+                document.querySelector('.btn-container').style.display = 'none';
+                
+                // 첫 번째 페이지 캡처
+                const canvas1 = await html2canvas(document.getElementById('page1'), {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    logging: false
+                });
+                
+                const imgData1 = canvas1.toDataURL('image/png');
+                pdf.addImage(imgData1, 'PNG', 0, 0, 210, 297);
+                
+                // 두 번째 페이지 추가
+                pdf.addPage();
+                
+                // 두 번째 페이지 캡처
+                const canvas2 = await html2canvas(document.getElementById('page2'), {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    logging: false
+                });
+                
+                const imgData2 = canvas2.toDataURL('image/png');
+                pdf.addImage(imgData2, 'PNG', 0, 0, 210, 297);
+                
+                // PDF 다운로드
+                const studentName = document.getElementById('name').value || '학생';
+                pdf.save(`내일_읽기활동지_${studentName}_${new Date().toLocaleDateString()}.pdf`);
+                
+                // 버튼 다시 표시
+                document.querySelector('.btn-container').style.display = 'flex';
+                
+                showNotification('📄 PDF로 저장되었습니다!', 'success');
+            } catch(error) {
+                console.error('PDF 저장 오류:', error);
+                showNotification('❌ PDF 저장 중 오류가 발생했습니다.', 'error');
+                document.querySelector('.btn-container').style.display = 'flex';
+            } finally {
+                showLoader(false);
+            }
+        }
+
+        // 로딩 스피너 표시/숨기기
+        function showLoader(show) {
+            const loader = document.getElementById('loadingSpinner');
+            if(show) {
+                loader.classList.add('active');
+            } else {
+                loader.classList.remove('active');
+            }
+        }
+
         // 알림 표시 함수
         function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
-            const bgColor = type === 'success' ? '#27ae60' : '#3498db';
+            const bgColor = type === 'success' ? '#27ae60' : 
+                           type === 'error' ? '#e74c3c' : '#3498db';
             
             notification.style.cssText = `
                 position: fixed;
