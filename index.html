@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《내일》 읽기 활동지</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .worksheet {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 0 auto;
+            padding: 20mm;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .worksheet {
+                box-shadow: none;
+                margin: 0;
+                padding: 15mm;
+            }
+            .no-print {
+                display: none !important;
+            }
+            input, textarea {
+                border: none !important;
+                padding: 2px !important;
+            }
+            /* 인쇄 시 placeholder 숨기기 */
+            input::placeholder,
+            textarea::placeholder {
+                color: transparent !important;
+            }
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #4a90e2;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .info-line {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 10px;
+        }
+        
+        .info-line input {
+            border: none;
+            border-bottom: 1px solid #999;
+            padding: 2px 5px;
+            font-size: 14px;
+            width: 100px;
+            text-align: center;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .question-box {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px dashed #cbd5e0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 13px;
+            resize: none;
+            background: white;
+        }
+        
+        .path-container {
+            position: relative;
+            height: 80px;
+            margin: 15px 0;
+            background: linear-gradient(to right, #e3f2fd, #fff3e0);
+            border-radius: 10px;
+            padding: 10px;
+        }
+        
+        .path {
+            position: absolute;
+            top: 25px;
+            left: 60px;
+            right: 60px;
+            height: 3px;
+            background: repeating-linear-gradient(
+                90deg,
+                #4a90e2,
+                #4a90e2 10px,
+                transparent 10px,
+                transparent 15px
+            );
+        }
+        
+        .path-start, .path-end {
+            position: absolute;
+            top: 15px;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-weight: bold;
+        }
+        
+        .path-start {
+            left: 10px;
+            color: #4a90e2;
+        }
+        
+        .path-end {
+            right: 10px;
+            color: #764ba2;
+        }
+        
+        .path-items {
+            margin-top: 45px;
+            display: flex;
+            justify-content: space-around;
+            font-size: 12px;
+        }
+        
+        .path-items input {
+            border: none;
+            border-bottom: 1px solid #cbd5e0;
+            padding: 2px;
+            width: 120px;
+            font-size: 12px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #e3f2fd;
+            padding: 8px;
+            text-align: left;
+            font-size: 13px;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        td {
+            padding: 8px;
+        }
+        
+        .declaration-box {
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        .declaration-box input {
+            border: none;
+            background: rgba(255,255,255,0.7);
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            width: 150px;
+            text-align: center;
+        }
+        
+        .friend-message {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px dashed #81c784;
+        }
+        
+        .insight-box {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            border: 2px solid #ffb74d;
+        }
+        
+        .btn-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .btn-print {
+            background: #4a90e2;
+            color: white;
+        }
+        
+        .btn-save {
+            background: #48bb78;
+            color: white;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .emoji {
+            font-size: 18px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="worksheet">
+        <header>
+            <h1>📚 《내일》 읽기 활동지</h1>
+            <div class="info-line">
+                <span>이름: <input type="text" id="name" placeholder="홍길동"></span>
+                <span>반: <input type="text" id="class" placeholder="3-1" style="width:60px;"></span>
+                <span>날짜: <input type="date" id="date"></span>
+            </div>
+        </header>
+
+        <div class="section">
+            <span class="section-title">1️⃣ 내일의 모습</span>
+            <div class="question-box">
+                <p style="margin-bottom: 8px;">그림책 속 내일은 <strong>뒷모습</strong>만 있고 <strong>얼굴이 없습니다</strong>. 왜 그럴까요?</p>
+                <textarea rows="2" placeholder="내 생각을 써보세요..."></textarea>
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="section-title">2️⃣ 나의 길 그리기</span>
+            <div class="path-container">
+                <div class="path"></div>
+                <div class="path-start">오늘</div>
+                <div class="path-end">내일</div>
+                <div class="path-items">
+                    <span><span class="emoji">🎒</span>가져갈 것: <input type="text" placeholder="용기"></span>
+                    <span><span class="emoji">🚫</span>버릴 것: <input type="text" placeholder="두려움"></span>
+                    <span><span class="emoji">👥</span>함께 갈 사람: <input type="text" placeholder="친구"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="section-title">3️⃣ 4가지 질문</span>
+            <table>
+                <tr>
+                    <th width="40%">질문</th>
+                    <th width="60%">나의 답</th>
+                </tr>
+                <tr>
+                    <td>내일이 불안한 이유는?</td>
+                    <td><textarea rows="1"></textarea></td>
+                </tr>
+                <tr>
+                    <td>내일이 기대되는 이유는?</td>
+                    <td><textarea rows="1"></textarea></td>
+                </tr>
+                <tr>
+                    <td>모른다는 걸 어떻게 받아들일까?</td>
+                    <td><textarea rows="1"></textarea></td>
+                </tr>
+                <tr>
+                    <td>오늘 할 수 있는 것은?</td>
+                    <td><textarea rows="1"></textarea></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <span class="section-title">4️⃣ 오늘 선언문</span>
+            <div class="declaration-box">
+                "나는 내일을 <input type="text" id="tomorrow-feel" placeholder="두려워">하지 않고,<br>
+                오늘을 <input type="text" id="today-feel" placeholder="소중">하게 살 거야!"
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="section-title">5️⃣ 친구와 나누기</span>
+            <div class="friend-message">
+                <textarea rows="2" placeholder="친구에게 응원 메시지를 남겨주세요..."></textarea>
+                <div style="text-align: right; margin-top: 5px;">
+                    from. <input type="text" style="width: 80px; border-bottom: 1px solid #81c784;">
+                </div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>⭐ 오늘의 깨달음</strong><br>
+            <textarea rows="1" style="margin-top: 10px;" placeholder="한 문장으로 정리해보세요..."></textarea>
+        </div>
+    </div>
+
+    <div class="btn-container no-print">
+        <button class="btn-save" onclick="saveData()">💾 저장하기</button>
+        <button class="btn-print" onclick="printWorksheet()">🖨️ 인쇄하기</button>
+    </div>
+
+    <script>
+        // 오늘 날짜 자동 설정
+        document.getElementById('date').value = new Date().toISOString().split('T')[0];
+
+        // placeholder 저장용 객체
+        let placeholders = {};
+
+        // 데이터 저장
+        function saveData() {
+            const data = {
+                name: document.getElementById('name').value,
+                class: document.getElementById('class').value,
+                date: document.getElementById('date').value,
+                answers: []
+            };
+            
+            document.querySelectorAll('textarea, input[type="text"]').forEach(element => {
+                if(element.value) {
+                    data.answers.push({
+                        id: element.id || '',
+                        value: element.value
+                    });
+                }
+            });
+            
+            localStorage.setItem('worksheet_tomorrow', JSON.stringify(data));
+            alert('✅ 활동지가 저장되었습니다!');
+        }
+
+        // 데이터 불러오기
+        function loadData() {
+            const saved = localStorage.getItem('worksheet_tomorrow');
+            if(saved) {
+                const data = JSON.parse(saved);
+                document.getElementById('name').value = data.name || '';
+                document.getElementById('class').value = data.class || '';
+                document.getElementById('date').value = data.date || '';
+                
+                if(data.answers) {
+                    data.answers.forEach(answer => {
+                        if(answer.id) {
+                            const element = document.getElementById(answer.id);
+                            if(element) {
+                                element.value = answer.value;
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+        // 인쇄
+        function printWorksheet() {
+            // 모든 placeholder 임시 제거
+            const inputs = document.querySelectorAll('input[placeholder], textarea[placeholder]');
+            
+            inputs.forEach(element => {
+                placeholders[element] = element.placeholder;
+                element.removeAttribute('placeholder');
+            });
+            
+            // 인쇄 다이얼로그 열기
+            window.print();
+            
+            // 인쇄 후 placeholder 복원 (약간의 지연 후)
+            setTimeout(() => {
+                inputs.forEach(element => {
+                    if(placeholders[element]) {
+                        element.placeholder = placeholders[element];
+                    }
+                });
+                placeholders = {};
+            }, 100);
+        }
+
+        // 페이지 로드 시 저장된 데이터 불러오기
+        window.onload = loadData;
+
+        // 자동 저장 (30초마다)
+        setInterval(saveData, 30000);
+
+        // 입력 시 자동 저장 (디바운싱 적용)
+        let saveTimeout;
+        document.addEventListener('input', function(e) {
+            if(e.target.matches('input, textarea')) {
+                clearTimeout(saveTimeout);
+                saveTimeout = setTimeout(saveData, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
