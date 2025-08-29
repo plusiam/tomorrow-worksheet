@@ -15,160 +15,197 @@
             font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
             background: #f0f0f0;
             padding: 20px;
+            color: #000;  /* 기본 텍스트 색상 진하게 */
         }
         
-        .worksheet {
+        .page {
             width: 210mm;
-            min-height: 297mm;
+            height: 297mm;
             background: white;
-            margin: 0 auto;
-            padding: 20mm;
+            margin: 0 auto 20px;
+            padding: 15mm 15mm;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
         
         @media print {
             body {
                 background: white;
                 padding: 0;
+                color: #000 !important;
             }
-            .worksheet {
+            .page {
                 box-shadow: none;
                 margin: 0;
-                padding: 15mm;
+                padding: 12mm 12mm;
+                page-break-after: always;
+                page-break-inside: avoid;
             }
             .no-print {
                 display: none !important;
             }
             input, textarea {
-                border: none !important;
+                border: 1px solid #999 !important;
                 padding: 2px !important;
+                color: #000 !important;
             }
             /* 인쇄 시 placeholder 숨기기 */
             input::placeholder,
             textarea::placeholder {
                 color: transparent !important;
             }
+            /* 인쇄 시 색상 강제 */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
         }
         
         header {
             text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #4a90e2;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2c3e50;
         }
         
         h1 {
-            color: #2c3e50;
-            font-size: 24px;
-            margin-bottom: 10px;
+            color: #000;
+            font-size: 22px;
+            margin-bottom: 8px;
+            font-weight: bold;
         }
         
         .info-line {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-top: 10px;
+            gap: 25px;
+            margin-top: 8px;
+        }
+        
+        .info-line span {
+            color: #000;
+            font-weight: 600;
         }
         
         .info-line input {
             border: none;
-            border-bottom: 1px solid #999;
+            border-bottom: 1px solid #000;
             padding: 2px 5px;
-            font-size: 14px;
-            width: 100px;
+            font-size: 13px;
+            width: 90px;
             text-align: center;
+            color: #000;
         }
         
         .section {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         
         .section-title {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #2c3e50;
             color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
+            padding: 4px 10px;
+            border-radius: 15px;
             display: inline-block;
-            font-size: 14px;
-            margin-bottom: 10px;
+            font-size: 13px;
+            margin-bottom: 8px;
+            font-weight: bold;
         }
         
         .question-box {
-            background: #f8f9fa;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+        }
+        
+        .question-box p {
+            color: #000;
+            font-size: 13px;
+            font-weight: 500;
         }
         
         textarea {
             width: 100%;
-            padding: 8px;
-            border: 1px dashed #cbd5e0;
-            border-radius: 5px;
+            padding: 6px;
+            border: 1px solid #999;
+            border-radius: 4px;
             font-family: inherit;
-            font-size: 13px;
+            font-size: 12px;
             resize: none;
             background: white;
+            color: #000;
         }
         
         .path-container {
             position: relative;
-            height: 80px;
-            margin: 15px 0;
-            background: linear-gradient(to right, #e3f2fd, #fff3e0);
-            border-radius: 10px;
-            padding: 10px;
+            height: 65px;
+            margin: 10px 0;
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 8px;
+            border: 1px solid #ddd;
         }
         
         .path {
             position: absolute;
-            top: 25px;
-            left: 60px;
-            right: 60px;
-            height: 3px;
+            top: 20px;
+            left: 50px;
+            right: 50px;
+            height: 2px;
             background: repeating-linear-gradient(
                 90deg,
-                #4a90e2,
-                #4a90e2 10px,
-                transparent 10px,
-                transparent 15px
+                #333,
+                #333 8px,
+                transparent 8px,
+                transparent 12px
             );
         }
         
         .path-start, .path-end {
             position: absolute;
-            top: 15px;
+            top: 12px;
             background: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 4px 8px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
             font-weight: bold;
+            font-size: 12px;
+            color: #000;
+            border: 1px solid #999;
         }
         
         .path-start {
-            left: 10px;
-            color: #4a90e2;
+            left: 8px;
         }
         
         .path-end {
-            right: 10px;
-            color: #764ba2;
+            right: 8px;
         }
         
         .path-items {
-            margin-top: 45px;
+            margin-top: 35px;
             display: flex;
             justify-content: space-around;
-            font-size: 12px;
+            font-size: 11px;
+        }
+        
+        .path-items span {
+            color: #000;
+            font-weight: 500;
         }
         
         .path-items input {
             border: none;
-            border-bottom: 1px solid #cbd5e0;
-            padding: 2px;
-            width: 120px;
-            font-size: 12px;
+            border-bottom: 1px solid #666;
+            padding: 1px;
+            width: 100px;
+            font-size: 11px;
+            color: #000;
         }
         
         table {
@@ -177,50 +214,75 @@
         }
         
         th {
-            background: #e3f2fd;
-            padding: 8px;
+            background: #e0e0e0;
+            padding: 6px;
             text-align: left;
-            font-size: 13px;
-            border-radius: 5px 5px 0 0;
+            font-size: 12px;
+            border: 1px solid #999;
+            color: #000;
+            font-weight: bold;
         }
         
         td {
-            padding: 8px;
+            padding: 5px;
+            border: 1px solid #999;
+            font-size: 12px;
+            color: #000;
+        }
+        
+        td textarea {
+            border: none;
+            padding: 2px;
+            font-size: 11px;
         }
         
         .declaration-box {
-            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
-            padding: 20px;
-            border-radius: 10px;
+            background: #fff8dc;
+            padding: 15px;
+            border-radius: 8px;
             text-align: center;
-            font-size: 16px;
-            line-height: 1.8;
+            font-size: 14px;
+            line-height: 1.6;
+            border: 2px solid #333;
+            color: #000;
+            font-weight: bold;
         }
         
         .declaration-box input {
             border: none;
-            background: rgba(255,255,255,0.7);
-            padding: 2px 8px;
+            background: white;
+            padding: 2px 6px;
             border-radius: 3px;
             font-weight: bold;
-            width: 150px;
+            width: 120px;
             text-align: center;
+            border: 1px solid #666;
+            color: #000;
         }
         
         .friend-message {
-            background: #e8f5e9;
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px dashed #81c784;
+            background: #f0f8f0;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px dashed #666;
+        }
+        
+        .friend-message textarea {
+            border: 1px solid #999;
         }
         
         .insight-box {
-            background: #fff3e0;
-            padding: 15px;
-            border-radius: 10px;
+            background: #fffaf0;
+            padding: 12px;
+            border-radius: 8px;
             text-align: center;
-            margin-top: 20px;
-            border: 2px solid #ffb74d;
+            border: 2px solid #666;
+            margin-top: auto;
+        }
+        
+        .insight-box strong {
+            color: #000;
+            font-size: 14px;
         }
         
         .btn-container {
@@ -229,6 +291,7 @@
             right: 30px;
             display: flex;
             gap: 10px;
+            z-index: 1000;
         }
         
         button {
@@ -239,15 +302,16 @@
             font-size: 14px;
             transition: all 0.3s;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-weight: bold;
         }
         
         .btn-print {
-            background: #4a90e2;
+            background: #2c3e50;
             color: white;
         }
         
         .btn-save {
-            background: #48bb78;
+            background: #27ae60;
             color: white;
         }
         
@@ -257,13 +321,23 @@
         }
         
         .emoji {
-            font-size: 18px;
-            margin-right: 5px;
+            font-size: 16px;
+            margin-right: 3px;
+        }
+        
+        /* 페이지 구분을 위한 스타일 */
+        .page-1 {
+            height: 297mm;
+        }
+        
+        .page-2 {
+            height: 297mm;
         }
     </style>
 </head>
 <body>
-    <div class="worksheet">
+    <!-- 첫 번째 페이지 -->
+    <div class="page page-1">
         <header>
             <h1>📚 《내일》 읽기 활동지</h1>
             <div class="info-line">
@@ -276,8 +350,8 @@
         <div class="section">
             <span class="section-title">1️⃣ 내일의 모습</span>
             <div class="question-box">
-                <p style="margin-bottom: 8px;">그림책 속 내일은 <strong>뒷모습</strong>만 있고 <strong>얼굴이 없습니다</strong>. 왜 그럴까요?</p>
-                <textarea rows="2" placeholder="내 생각을 써보세요..."></textarea>
+                <p>그림책 속 내일은 <strong>뒷모습</strong>만 있고 <strong>얼굴이 없습니다</strong>. 왜 그럴까요?</p>
+                <textarea rows="3" placeholder="내 생각을 써보세요..."></textarea>
             </div>
         </div>
 
@@ -299,32 +373,35 @@
             <span class="section-title">3️⃣ 4가지 질문</span>
             <table>
                 <tr>
-                    <th width="40%">질문</th>
-                    <th width="60%">나의 답</th>
+                    <th width="35%">질문</th>
+                    <th width="65%">나의 답</th>
                 </tr>
                 <tr>
-                    <td>내일이 불안한 이유는?</td>
-                    <td><textarea rows="1"></textarea></td>
+                    <td><strong>내일이 불안한 이유는?</strong></td>
+                    <td><textarea rows="2"></textarea></td>
                 </tr>
                 <tr>
-                    <td>내일이 기대되는 이유는?</td>
-                    <td><textarea rows="1"></textarea></td>
+                    <td><strong>내일이 기대되는 이유는?</strong></td>
+                    <td><textarea rows="2"></textarea></td>
                 </tr>
                 <tr>
-                    <td>모른다는 걸 어떻게 받아들일까?</td>
-                    <td><textarea rows="1"></textarea></td>
+                    <td><strong>모른다는 걸 어떻게 받아들일까?</strong></td>
+                    <td><textarea rows="2"></textarea></td>
                 </tr>
                 <tr>
-                    <td>오늘 할 수 있는 것은?</td>
-                    <td><textarea rows="1"></textarea></td>
+                    <td><strong>오늘 할 수 있는 것은?</strong></td>
+                    <td><textarea rows="2"></textarea></td>
                 </tr>
             </table>
         </div>
+    </div>
 
+    <!-- 두 번째 페이지 -->
+    <div class="page page-2">
         <div class="section">
             <span class="section-title">4️⃣ 오늘 선언문</span>
             <div class="declaration-box">
-                "나는 내일을 <input type="text" id="tomorrow-feel" placeholder="두려워">하지 않고,<br>
+                "나는 내일을 <input type="text" id="tomorrow-feel" placeholder="두려워">하지 않고,<br><br>
                 오늘을 <input type="text" id="today-feel" placeholder="소중">하게 살 거야!"
             </div>
         </div>
@@ -332,16 +409,17 @@
         <div class="section">
             <span class="section-title">5️⃣ 친구와 나누기</span>
             <div class="friend-message">
-                <textarea rows="2" placeholder="친구에게 응원 메시지를 남겨주세요..."></textarea>
-                <div style="text-align: right; margin-top: 5px;">
-                    from. <input type="text" style="width: 80px; border-bottom: 1px solid #81c784;">
+                <p style="margin-bottom: 8px; font-weight: bold; color: #000;">친구에게 응원 메시지를 남겨주세요:</p>
+                <textarea rows="4" placeholder="친구야, 내일이 불확실해도..."></textarea>
+                <div style="text-align: right; margin-top: 8px;">
+                    <strong>from.</strong> <input type="text" style="width: 80px; border-bottom: 1px solid #333;">
                 </div>
             </div>
         </div>
 
         <div class="insight-box">
-            <strong>⭐ 오늘의 깨달음</strong><br>
-            <textarea rows="1" style="margin-top: 10px;" placeholder="한 문장으로 정리해보세요..."></textarea>
+            <strong>⭐ 오늘의 깨달음</strong>
+            <textarea rows="3" style="margin-top: 10px; width: 100%;" placeholder="한 문장으로 정리해보세요..."></textarea>
         </div>
     </div>
 
