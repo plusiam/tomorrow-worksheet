@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>《내일》 읽기 활동지 - 인쇄 최적화 완성판</title>
+    <title>《내일》 읽기 활동지</title>
     <style>
         * {
             margin: 0;
@@ -65,16 +65,19 @@
             .page {
                 box-shadow: none;
                 margin: 0;
-                page-break-after: always;
                 page-break-inside: avoid;
                 height: 297mm !important;
                 width: 210mm !important;
             }
+            /* 첫 번째 페이지만 page-break-after 적용 */
             .page-1 {
                 padding: 15mm 15mm;
+                page-break-after: always;
             }
+            /* 마지막 페이지는 page-break 없음 */
             .page-2 {
                 padding: 12mm 15mm;
+                page-break-after: auto;
             }
             .no-print {
                 display: none !important;
