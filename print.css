@@ -1,0 +1,54 @@
+/* =========================================================
+   tomorrow-worksheet: A4 인쇄 최적화
+   - 2페이지 고정 레이아웃
+   - 컴포넌트 중간 잘림 방지
+   ========================================================= */
+
+@page {
+  size: A4;
+  margin: 15mm 12mm;
+}
+
+@media print {
+  /* 화면 전용 UI 숨김 */
+  .no-print,
+  #save-toast,
+  button:not(.printable) { 
+    display: none !important; 
+  }
+
+  /* 페이지 분리 규칙 */
+  .page { 
+    page-break-after: always;
+    break-after: page; 
+  }
+  
+  .no-break { 
+    page-break-inside: avoid;
+    break-inside: avoid; 
+  }
+  
+  /* 섹션별 분리 방지 */
+  .activity-section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* 배경/그림자 제거로 잉크 절약 */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* placeholder는 인쇄에서 제거 */
+  input::placeholder,
+  textarea::placeholder { 
+    color: transparent !important; 
+  }
+  
+  /* 입력 필드 테두리 선명하게 */
+  input, textarea {
+    border: 1px solid #666 !important;
+    print-color-adjust: exact;
+  }
+}
