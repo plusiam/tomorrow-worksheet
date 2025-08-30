@@ -9,6 +9,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
+    <!-- 테마 및 인쇄 스타일 연결 -->
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="print.css" media="print">
+    
     <style>
         * {
             margin: 0;
@@ -711,6 +715,15 @@
         </div>
     </div>
 
+    <!-- 저장 알림 배너 (시각적/스크린리더 공통) -->
+    <div id="save-toast" role="status" aria-live="polite" aria-atomic="true"
+         style="position:fixed;right:16px;bottom:16px;z-index:1000;
+                background:#2d3748;color:#fff;padding:12px 20px;border-radius:8px;
+                box-shadow:0 4px 20px rgba(0,0,0,.15);opacity:0;pointer-events:none;
+                transition:opacity .35s ease;font-size:14px;font-weight:500;">
+      ✓ 자동 저장됨
+    </div>
+
     <script>
         // 오늘 날짜 자동 설정
         document.getElementById('date').value = new Date().toISOString().split('T')[0];
@@ -1004,5 +1017,8 @@
             window.addEventListener('beforeunload', saveData);
         });
     </script>
+
+    <!-- 디바운스 자동저장 (입력 변화 기반) -->
+    <script src="js/autosave.js"></script>
 </body>
 </html>

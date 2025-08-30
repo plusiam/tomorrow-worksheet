@@ -1,0 +1,41 @@
+/* =========================================================
+   tomorrow-worksheet: 테마 변수 시스템
+   - CSS 변수로 일관된 디자인 유지
+   - 향후 다크모드 전환 용이
+   ========================================================= */
+
+:root {
+  --tmw-bg: #ffffff;
+  --tmw-fg: #222222;
+  --tmw-accent: #4a90e2;
+  --tmw-accent-hover: #357abd;
+  --tmw-border: #d0d7de;
+  --tmw-muted: #6e7781;
+  --tmw-shadow: rgba(0, 0, 0, 0.1);
+  --tmw-focus: rgba(74, 144, 226, 0.25);
+}
+
+html, body {
+  background: var(--tmw-bg);
+  color: var(--tmw-fg);
+}
+
+/* 제목/구분선 등 공통 토큰 */
+h1, h2, h3 { 
+  color: var(--tmw-fg); 
+}
+
+.section-title { 
+  border-bottom: 2px solid var(--tmw-border); 
+}
+
+.muted { 
+  color: var(--tmw-muted); 
+}
+
+/* 입력 포커스 가시성 강화 (접근성) */
+input:focus, 
+textarea:focus {
+  box-shadow: 0 0 0 3px var(--tmw-focus);
+  border-color: var(--tmw-accent);
+}
